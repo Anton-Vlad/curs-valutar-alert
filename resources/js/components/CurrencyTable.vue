@@ -15,6 +15,8 @@ import {
     TooltipTrigger
 } from '@/components/ui/tooltip';
 import CountryFlagSvg from '@/components/CountryFlagSvg.vue';
+import { Bookmark } from 'lucide-vue-next';
+import { Button } from '@/components/ui/button/index.js';
 
 const props = defineProps({
     data: Array
@@ -33,20 +35,21 @@ const props = defineProps({
                 <TableHead>Code</TableHead>
                 <TableHead>Value</TableHead>
                 <TableHead class="text-right">
-                    Track
+                    Bookmark
                 </TableHead>
             </TableRow>
         </TableHeader>
         <TableBody>
-            <TableRow v-for="rate in props.data" :key="rate.code">
+            <TableRow v-for="rate in props.data" :key="rate.currency">
                 <TableCell>
-                    <CountryFlagSvg :code="rate.code" />
+                    <CountryFlagSvg :code="rate.currency" />
                 </TableCell>
                 <TableCell>
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger as-child>
-                                <span>{{ rate.code }}</span>
+                                <span>{{ rate.currency }}</span>
+                                <span v-if="rate.currency === 'HRK'"> [!]</span>
                             </TooltipTrigger>
                             <TooltipContent>
                                 <p>Add to library</p>
@@ -54,9 +57,11 @@ const props = defineProps({
                         </Tooltip>
                     </TooltipProvider>
                 </TableCell>
-                <TableCell>{{ rate.value }}</TableCell>
-                <TableCell class="text-right">
-                    -
+                <TableCell>{{ rate.rate }}</TableCell>
+                <TableCell class="text-right flex justify-end">
+                    <Button variant="link">
+                        <Bookmark />
+                    </Button>
                 </TableCell>
             </TableRow>
         </TableBody>
