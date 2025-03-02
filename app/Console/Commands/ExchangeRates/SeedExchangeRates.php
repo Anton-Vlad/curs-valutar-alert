@@ -3,6 +3,7 @@
 namespace App\Console\Commands\ExchangeRates;
 
 use App\Models\ExchangeRate;
+use App\Models\LatestCurrencyRate;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
@@ -79,9 +80,12 @@ class SeedExchangeRates extends Command implements PromptsForMissingInput
                         $dayRates[$currency] = $rateValue;
                     }
 
-                    logger()->info("DAY: {$date}", $dayRates);
+//                    logger()->info("DAY: {$date}", $dayRates);
 
                     $this->storeRate($date, $dayRates);
+                    $this->updateLatestRates($date, $dayRates);
+
+                    return;
                 }
             );
 
@@ -110,5 +114,17 @@ class SeedExchangeRates extends Command implements PromptsForMissingInput
             'rates' => $rates,
             'date' => $date,
         ]);
+    }
+
+    private function updateLatestRates($date, $rates): void
+    {
+        foreach ($rates as $currency => $rate) {
+            LatestCurrencyRate::updateOrCreate([
+                'currency' => $currency,
+            ], [
+                'date' => $date,
+                'rate' => $rate,
+            ]);
+        }
     }
 }
