@@ -32,7 +32,7 @@ const props = defineProps<{
                     <PlaceholderPattern />
                 </div>
                 <div class="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border p-5">
-                    <h4 class="mt-0 mb-2">Latest data pulled on</h4>
+                    <h4 class="mt-0 mb-2">Latest data from</h4>
                     <p class="text-2xl font-semibold tracking-tight transition-colors first:mt-0 lg:text-3xl">
                         {{ latestDate }}
                     </p>

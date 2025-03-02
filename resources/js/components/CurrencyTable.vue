@@ -2,18 +2,11 @@
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger
-} from '@/components/ui/tooltip';
 import CountryFlagSvg from '@/components/CountryFlagSvg.vue';
 import { Bookmark } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button/index.js';
@@ -29,11 +22,11 @@ const props = defineProps({
 <!--        <TableCaption>A list of your recent invoices.</TableCaption>-->
         <TableHeader>
             <TableRow>
-                <TableHead class="w-[100px]">
-                    Flag
+                <TableHead class="w-[140px]">
+                    Code
                 </TableHead>
-                <TableHead>Code</TableHead>
-                <TableHead>Value</TableHead>
+                <TableHead class="w-[160px]">RON Value</TableHead>
+                <TableHead>Currency</TableHead>
                 <TableHead class="text-right">
                     Bookmark
                 </TableHead>
@@ -42,22 +35,15 @@ const props = defineProps({
         <TableBody>
             <TableRow v-for="rate in props.data" :key="rate.currency">
                 <TableCell>
-                    <CountryFlagSvg :code="rate.currency" />
-                </TableCell>
-                <TableCell>
-                    <TooltipProvider>
-                        <Tooltip>
-                            <TooltipTrigger as-child>
-                                <span>{{ rate.currency }}</span>
-                                <span v-if="rate.currency === 'HRK'"> [!]</span>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                <p>Add to library</p>
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
+                    <div class="flex items-center gap-5 ">
+                        <CountryFlagSvg :code="rate.currency" />
+                        <span>{{ rate.currency }}</span>
+                    </div>
                 </TableCell>
                 <TableCell>{{ rate.rate }}</TableCell>
+                <TableCell>
+                    <span>{{ rate.currency }}</span>
+                </TableCell>
                 <TableCell class="text-right flex justify-end">
                     <Button variant="link">
                         <Bookmark />
