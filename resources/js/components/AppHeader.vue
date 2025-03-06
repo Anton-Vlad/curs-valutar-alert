@@ -17,7 +17,7 @@ import UserMenuContent from '@/components/UserMenuContent.vue';
 import { getInitials } from '@/composables/useInitials';
 import type { BreadcrumbItem, NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { Bookmark, BookOpen, ChartLine, Folder, LayoutGrid, Menu, Search } from 'lucide-vue-next';
+import { Bookmark, BookOpen, ChartLine, Folder, LayoutGrid, BadgeEuro, Menu, Search } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 interface Props {
@@ -39,18 +39,18 @@ const activeItemStyles = computed(() => (url: string) => (isCurrentRoute(url) ? 
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
-        url: '/dashboard',
-        icon: LayoutGrid,
+        title: 'Principal',
+        url: '/principal',
+        icon: BadgeEuro,
     },
     {
-        title: 'Bookmarks',
-        url: '/bookmarks',
+        title: 'Urmărite',
+        url: '/urmarite',
         icon: Bookmark,
     },
     {
-        title: 'Chart',
-        url: '/chart',
+        title: 'Grafic',
+        url: '/grafic',
         icon: ChartLine,
     },
 ];

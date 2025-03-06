@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 
 class DashboardController extends Controller
 {
@@ -20,9 +22,12 @@ class DashboardController extends Controller
      */
     public function index(Request $request): Response
     {
+        setlocale(LC_TIME, 'ro_RO'); // Set Romanian locale
+        Carbon::setLocale('ro');
+
         $latestRates = LatestCurrencyRate::orderBy('rate', 'desc')->get();
 
-        $date = $latestRates[0]->date->format('d F, Y');
+        $date = $latestRates[0]->date->translatedFormat('l, d F Y');
 
         return Inertia::render('Dashboard', [
             'latestDate' => $date,

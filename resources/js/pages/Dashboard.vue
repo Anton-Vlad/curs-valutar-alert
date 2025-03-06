@@ -7,8 +7,8 @@ import CurrencyTable from '@/components/CurrencyTable.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Dashboard',
-        href: '/dashboard',
+        title: 'Tabel Principal',
+        href: '/principal',
     },
 ];
 
@@ -20,7 +20,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Tabel Principal" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
@@ -32,8 +32,8 @@ const props = defineProps<{
                     <PlaceholderPattern />
                 </div>
                 <div class="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border p-5">
-                    <h4 class="mt-0 mb-2">Latest data from</h4>
-                    <p class="text-2xl font-semibold tracking-tight transition-colors first:mt-0 lg:text-3xl">
+                    <h4 class="mt-0 mb-2">Ultimul comunicat</h4>
+                    <p class="text-2xl font-semibold  transition-colors first:mt-0 lg:text-3xl">
                         {{ latestDate }}
                     </p>
                 </div>
