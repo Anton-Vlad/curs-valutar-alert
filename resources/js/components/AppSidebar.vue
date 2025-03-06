@@ -9,8 +9,8 @@ import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
-        url: '/dashboard',
+        title: 'Principal',
+        url: '/principal',
         icon: LayoutGrid,
     },
     {

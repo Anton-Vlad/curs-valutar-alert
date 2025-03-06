@@ -7,13 +7,13 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
-Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('principal', [\App\Http\Controllers\DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('chart', function () {
+Route::get('grafic', function () {
     return Inertia::render('Chart');
 })->middleware(['auth', 'verified'])->name('chart');
 
-Route::get('bookmarks', function () {
+Route::get('urmarite', function () {
     return Inertia::render('Bookmarks');
 })->middleware(['auth', 'verified'])->name('bookmarks');
 
