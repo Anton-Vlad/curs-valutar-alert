@@ -19,7 +19,6 @@ const props = defineProps({
 
 <template>
     <Table>
-
         <TableHeader>
             <TableRow>
                 <TableHead class="w-[70px]">
