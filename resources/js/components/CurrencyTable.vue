@@ -7,6 +7,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
+import { ref, onMounted } from 'vue';
 import CountryFlagSvg from '@/components/CountryFlagSvg.vue';
 import RateName from '@/components/RateName.vue';
 import { Switch } from '@/components/ui/switch';
@@ -14,6 +15,22 @@ import { Switch } from '@/components/ui/switch';
 const props = defineProps({
     data: Array
 });
+
+const bookmarks = ref({});
+
+onMounted(() => {
+    for (let i = 0; i < props.data.length; i++) {
+        bookmarks.value[props.data[i].currency] = false;
+    }
+
+    // bookmarks.value['EUR'] = true;
+})
+
+const toggleBookmark = (rate) => {
+    bookmarks.value[rate] = !bookmarks.value[rate];
+
+    console.log(bookmarks.value);
+}
 
 </script>
 
@@ -52,12 +69,12 @@ const props = defineProps({
                     {{ rate.rate }}
                 </TableCell>
                 <TableCell class="text-right flex justify-end">
-                    []
-<!--                    <Switch-->
-<!--                        :model-value="value"-->
-<!--                        @update:model-value="handleChange"-->
-<!--                    />-->
+                    <Switch
+                        :model-value="bookmarks[rate.currency]"
+                        @update:model-value="toggleBookmark(rate.currency)"
+                    />
                 </TableCell>
+
             </TableRow>
         </TableBody>
     </Table>
