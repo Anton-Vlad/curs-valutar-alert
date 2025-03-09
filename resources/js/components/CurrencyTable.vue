@@ -16,6 +16,7 @@ import { Switch } from '@/components/ui/switch';
 const props = defineProps({
     data: Array,
     defaults: Object,
+    readonly: Boolean,
 });
 
 const bookmarks = ref(props.defaults);
@@ -54,7 +55,7 @@ function saveBookmarks() {
                 <TableHead class="">
                     Valoare în RON
                 </TableHead>
-                <TableHead class="text-right">
+                <TableHead v-if="!readonly" class="text-right">
                     Urmărește
                 </TableHead>
             </TableRow>
@@ -75,7 +76,7 @@ function saveBookmarks() {
                 <TableCell>
                     {{ rate.rate }}
                 </TableCell>
-                <TableCell class="text-right flex justify-end">
+                <TableCell v-if="!readonly" class="text-right flex justify-end">
                     <Switch
                         :model-value="bookmarks[rate.currency]"
                         @update:model-value="toggleBookmark(rate.currency)"

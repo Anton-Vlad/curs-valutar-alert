@@ -15,13 +15,14 @@ import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import UserMenuContent from '@/components/UserMenuContent.vue';
 import { getInitials } from '@/composables/useInitials';
-import type { BreadcrumbItem, NavItem } from '@/types';
+import type { BreadcrumbItemType, NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
 import { Bookmark, BookOpen, ChartLine, Folder, LayoutGrid, BadgeEuro, Menu, Search } from 'lucide-vue-next';
 import { computed } from 'vue';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 
 interface Props {
-    breadcrumbs?: BreadcrumbItem[];
+    breadcrumbs?: BreadcrumbItemType[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -192,7 +193,25 @@ const rightNavItems: NavItem[] = [
 
         <div v-if="props.breadcrumbs.length > 1" class="flex w-full border-b border-sidebar-border/70">
             <div class="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl">
-                <Breadcrumbs :breadcrumbs="props.breadcrumbs" />
+                <template v-if="breadcrumbs.length > 0">
+                    <Breadcrumb>
+                        <BreadcrumbList>
+                            <template v-for="(item, index) in breadcrumbs" :key="index">
+                                <BreadcrumbItem>
+                                    <template v-if="index === breadcrumbs.length - 1">
+                                        <BreadcrumbPage>{{ item.title }}</BreadcrumbPage>
+                                    </template>
+                                    <template v-else>
+                                        <BreadcrumbLink :href="item.href">
+                                            {{ item.title }}
+                                        </BreadcrumbLink>
+                                    </template>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator v-if="index !== breadcrumbs.length - 1" />
+                            </template>
+                        </BreadcrumbList>
+                    </Breadcrumb>
+                </template>
             </div>
         </div>
     </div>

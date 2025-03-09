@@ -7,6 +7,7 @@ use App\Models\Bookmark;
 use App\Models\LatestCurrencyRate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 use PhpParser\Node\Expr\Throw_;
@@ -18,13 +19,26 @@ class BookmarkController extends Controller
      */
     public function index(Request $request): Response
     {
+        $bookmarks = Bookmark::where('user_id', auth()->id())->get();
+        if ($bookmarks->isEmpty()) {
+            $bookmarkedSymbols = [];
+            return Inertia::render('Bookmarks', [
+                'data' => [],
+            ]);
+        }
+
+        $bookmarkedSymbols = collect($bookmarks[0]->symbols)->filter(function ($value) {
+            return $value !== false;
+        })->keys()->toArray();
+
         $latestRates = LatestCurrencyRate::orderBy('rate', 'desc')
-            ->whereIn('currency', ['EUR', 'USD', 'CHF', 'GBP', 'BGN', 'HUF'])
+            ->whereIn('currency', $bookmarkedSymbols)
             ->get();
 
 
         return Inertia::render('Bookmarks', [
-            'bookmarks' => $latestRates,
+            'data' => $bookmarkedSymbols,
+            'rates' => $latestRates,
         ]);
     }
 
