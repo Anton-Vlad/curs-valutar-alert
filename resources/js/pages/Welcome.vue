@@ -20,7 +20,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <Head title="Welcome">
+    <Head title="Curs Valutar Azi">
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
@@ -152,4 +152,12 @@ const props = defineProps<{
         </div>
         <div class="h-14.5 hidden lg:block"></div>
     </div>
+    <footer>
+        <div class="max-w-[335px] lg:max-w-4xl mx-auto mb-3">
+            <p class="text-center text-sm mb-2 text-[#706f6c] dark:text-[#A1A09A]">
+                Informațiile referitoare la cotațiile valutare ale leului sunt preluate de pe site-ul
+                <a href="https://www.bnro.ro/" target="_blank" class="hover:underline">Băncii Naționale a României</a> (BNR) și au caracter pur informativ.
+            </p>
+        </div>
+    </footer>
 </template>
