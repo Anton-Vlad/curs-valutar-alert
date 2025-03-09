@@ -7,29 +7,36 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
+import { useForm } from '@inertiajs/vue3';
 import CountryFlagSvg from '@/components/CountryFlagSvg.vue';
 import RateName from '@/components/RateName.vue';
 import { Switch } from '@/components/ui/switch';
 
 const props = defineProps({
-    data: Array
+    data: Array,
+    defaults: Object,
 });
 
-const bookmarks = ref({});
-
-onMounted(() => {
-    for (let i = 0; i < props.data.length; i++) {
-        bookmarks.value[props.data[i].currency] = false;
-    }
-
-    // bookmarks.value['EUR'] = true;
-})
+const bookmarks = ref(props.defaults);
+const form = useForm({
+    'symbols': bookmarks.value
+});
 
 const toggleBookmark = (rate) => {
     bookmarks.value[rate] = !bookmarks.value[rate];
+    saveBookmarks();
+}
 
-    console.log(bookmarks.value);
+function saveBookmarks() {
+    form.transform(() => ({
+        symbols: {...bookmarks.value},
+    })).post(route('bookmarks.store'), {
+        preserveScroll: true,
+        // onSuccess: () => {
+        //
+        // },
+    });
 }
 
 </script>

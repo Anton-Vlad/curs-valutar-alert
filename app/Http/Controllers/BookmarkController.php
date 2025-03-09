@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bookmark;
 use App\Models\LatestCurrencyRate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use PhpParser\Node\Expr\Throw_;
 
 class BookmarkController extends Controller
 {
@@ -28,7 +30,21 @@ class BookmarkController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $user = $request->user();
 
-        return back();
+        try {
+            Bookmark::updateOrCreate([
+                'user_id' => $user->id
+            ], [
+                'symbols' => $request->input('symbols')
+            ]);
+
+            return back()->with('status', 'success'); //to_route('dashboard');
+        } catch (\Throwable $error) {
+//            throw $error;
+            logger()->error($error);
+            return back()->with('status', 'error');
+        }
+
     }
 }
