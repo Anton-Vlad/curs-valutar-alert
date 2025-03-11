@@ -9,6 +9,7 @@ Route::get('principal', [\App\Http\Controllers\DashboardController::class, 'inde
 
 Route::get('urmarite', [\App\Http\Controllers\BookmarkController::class, 'index'])->middleware(['auth', 'verified'])->name('bookmarks');
 Route::post('urmarite', [\App\Http\Controllers\BookmarkController::class, 'store'])->middleware(['auth', 'verified'])->name('bookmarks.store');
+Route::put('urmarite', [\App\Http\Controllers\BookmarkController::class, 'update'])->middleware(['auth', 'verified'])->name('bookmarks.update');
 
 Route::get('grafic', function () {
     return Inertia::render('Chart');

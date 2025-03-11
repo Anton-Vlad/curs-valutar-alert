@@ -2,8 +2,8 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
-import CurrencyTable from '@/components/CurrencyTable.vue';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
+import CurrencyCard from '@/components/CurrencyCard.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -28,8 +28,12 @@ const props = defineProps<{
                 <p class="mb-6 text-[#706f6c] dark:text-[#A1A09A]">
                     Configureaza alerte pe fiecare simbol.
                 </p>
-                <div class="relative  rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <CurrencyTable :data="props.rates" :readonly="true" />
+                <div class="grid auto-rows-min gap-4 md:grid-cols-3">
+                    <CurrencyCard
+                        v-for="(item, index) in rates"
+                        :rate="item"
+                        :key="index"
+                    />
                 </div>
             </div>
 

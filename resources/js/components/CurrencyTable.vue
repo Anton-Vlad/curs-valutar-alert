@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {
     Table,
     TableBody,
@@ -12,12 +12,15 @@ import { useForm } from '@inertiajs/vue3';
 import CountryFlagSvg from '@/components/CountryFlagSvg.vue';
 import RateName from '@/components/RateName.vue';
 import { Switch } from '@/components/ui/switch';
+import { useToast } from '@/components/ui/toast/use-toast';
 
 const props = defineProps({
     data: Array,
     defaults: Object,
     readonly: Boolean,
 });
+
+const { toast } = useToast();
 
 const bookmarks = ref(props.defaults);
 const form = useForm({
@@ -34,9 +37,11 @@ function saveBookmarks() {
         symbols: {...bookmarks.value},
     })).post(route('bookmarks.store'), {
         preserveScroll: true,
-        // onSuccess: () => {
-        //
-        // },
+        onSuccess: () => {
+            toast({
+                title: 'Ai adaugat cu success simbolul la Urmarite.',
+            });
+        },
     });
 }
 
