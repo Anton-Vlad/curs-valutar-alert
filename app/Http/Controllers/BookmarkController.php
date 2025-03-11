@@ -5,41 +5,31 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Bookmarks\BookmarkUpdateRequest;
 use App\Models\Bookmark;
-use App\Models\LatestCurrencyRate;
+use App\Services\BookmarkService;
+use App\Services\RateService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
-use PhpParser\Node\Expr\Throw_;
 
 class BookmarkController extends Controller
 {
     /**
      * Show the user's dashboard page.
      */
-    public function index(Request $request): Response
+    public function index(Request $request, RateService $rateService, BookmarkService $bookmarkService): Response
     {
-        $bookmarks = Bookmark::where('user_id', auth()->id())->get();
+        $bookmarks = $bookmarkService->getUserBookmarks();
         if ($bookmarks->isEmpty()) {
             return Inertia::render('Bookmarks', [
-                'data' => [],
                 'rates' => []
             ]);
         }
 
-        $bookmarkedSymbols = collect($bookmarks[0]->symbols)->filter(function ($value) {
-            return $value !== false;
-        })->keys()->toArray();
-
-        $latestRates = LatestCurrencyRate::orderBy('rate', 'desc')
-            ->whereIn('currency', $bookmarkedSymbols)
-            ->get();
-
+        $bookmarkedSymbols = $bookmarks->keys()->toArray();
 
         return Inertia::render('Bookmarks', [
-            'data' => $bookmarkedSymbols,
-            'rates' => $latestRates,
+            'rates' => $rateService->getLatestRates($bookmarkedSymbols),
         ]);
     }
 
