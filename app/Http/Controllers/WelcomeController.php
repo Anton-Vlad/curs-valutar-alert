@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Settings\ProfileUpdateRequest;
 use App\Models\ExchangeRate;
 use App\Models\LatestCurrencyRate;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -27,7 +24,6 @@ class WelcomeController extends Controller
 
         $latestRates = LatestCurrencyRate::orderBy('rate', 'desc')
             ->whereIn('currency', ['EUR', 'USD', 'CHF', 'GBP', 'BGN', 'HUF'])
-            ->limit(6)
             ->get();
 
         $date = $latestRates[0]->date->translatedFormat('d F Y');

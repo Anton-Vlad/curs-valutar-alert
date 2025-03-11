@@ -29,9 +29,17 @@ class DashboardController extends Controller
 
         $date = $latestRates[0]->date->translatedFormat('l, d F Y');
 
+        $bookmarks = Auth::user()->bookmarks()->orderBy('created_at', 'desc')->first();
+        if (!$bookmarks) {
+            $bookmarks = [];
+        } else {
+            $bookmarks = $bookmarks->symbols;
+        }
+
         return Inertia::render('Dashboard', [
             'latestDate' => $date,
             'rates' => $latestRates,
+            'bookmarks' => $bookmarks
         ]);
     }
 }

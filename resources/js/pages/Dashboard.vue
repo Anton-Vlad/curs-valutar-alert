@@ -16,6 +16,7 @@ const props = defineProps<{
     name?: string;
     rates: Array;
     latestDate?: string;
+    bookmarks: Object;
 }>();
 </script>
 
@@ -39,7 +40,7 @@ const props = defineProps<{
                 </div>
             </div>
             <div class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min">
-                <CurrencyTable :data="props.rates" />
+                <CurrencyTable :data="props.rates" :defaults="props.bookmarks" />
             </div>
         </div>
     </AppLayout>

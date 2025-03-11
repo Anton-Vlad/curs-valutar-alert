@@ -20,7 +20,7 @@ const props = defineProps<{
 </script>
 
 <template>
-    <Head title="Welcome">
+    <Head title="Curs Valutar Azi">
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     </Head>
@@ -30,7 +30,7 @@ const props = defineProps<{
                 <div
                     class="flex-1 rounded-bl-lg rounded-br-lg bg-white p-6 pb-12 text-[13px] leading-[20px] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:bg-[#161615] dark:text-[#EDEDEC] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] lg:rounded-br-none lg:rounded-tl-lg lg:p-20"
                 >
-                    <h1 class="mb-1 font-medium text-xl">Curs Valutar Alert</h1>
+                    <h1 class="mb-1 font-medium text-xl">{{ $page.props.name }}</h1>
                     <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
                         O aplicatie de monitorizare a cursului valutar. <br />Cursurile sunt preluate de la API-ul BNR si sunt actualizate zilnic.
                     </p>
@@ -152,4 +152,12 @@ const props = defineProps<{
         </div>
         <div class="h-14.5 hidden lg:block"></div>
     </div>
+    <footer>
+        <div class="max-w-[335px] lg:max-w-4xl mx-auto mb-3">
+            <p class="text-center text-sm mb-2 text-[#706f6c] dark:text-[#A1A09A]">
+                Informațiile referitoare la cotațiile valutare ale leului sunt preluate de pe site-ul
+                <a href="https://www.bnro.ro/" target="_blank" class="hover:underline">Băncii Naționale a României</a> (BNR) și au caracter pur informativ.
+            </p>
+        </div>
+    </footer>
 </template>
