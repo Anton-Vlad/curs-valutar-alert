@@ -22,9 +22,9 @@ class BookmarkController extends Controller
     {
         $bookmarks = Bookmark::where('user_id', auth()->id())->get();
         if ($bookmarks->isEmpty()) {
-            $bookmarkedSymbols = [];
             return Inertia::render('Bookmarks', [
                 'data' => [],
+                'rates' => []
             ]);
         }
 
