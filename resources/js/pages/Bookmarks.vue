@@ -15,12 +15,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 const props = defineProps<{
     name?: string;
     rates: Array;
-    latestDate?: string;
 }>();
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Urmarite" />
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
             <div v-if="rates.length">

@@ -13,6 +13,7 @@ import CountryFlagSvg from '@/components/CountryFlagSvg.vue';
 import RateName from '@/components/RateName.vue';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/components/ui/toast/use-toast';
+import CurrencyVariation from '@/components/CurrencyVariation.vue';
 
 const props = defineProps({
     data: Array,
@@ -79,7 +80,7 @@ function saveBookmarks() {
                     </div>
                 </TableCell>
                 <TableCell>
-                    {{ rate.rate }}
+                    {{ rate.value }} <CurrencyVariation :rate="rate" :class-name="{'ml-3': true}" />
                 </TableCell>
                 <TableCell v-if="!readonly" class="text-right flex justify-end">
                     <Switch

@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/tooltip'
 import { useForm } from '@inertiajs/vue3';
 import { useToast } from '@/components/ui/toast/use-toast';
+import CurrencyVariation from '@/components/CurrencyVariation.vue';
 
 const props = defineProps({
     rate: Object,
@@ -53,10 +54,12 @@ function updateBookmarks() {
         <h4 class="mt-0 mb-2 flex items-center gap-3">
             <CountryFlagSvg :code="rate.currency" />
             <RateName :code="rate.currency" />
+
+            <CurrencyVariation :rate="rate" :class-name="{'ml-auto': true, 'mr-0': true}" />
         </h4>
 
         <p class="text-xl font-semibold  transition-colors first:mt-0 lg:text-2xl">
-            1 {{ rate.currency }} = {{ rate.rate }} RON
+            1 {{ rate.currency }} = {{ rate.value }} RON
         </p>
 
         <div class="mt-3 flex items-center justify-end gap-3">
