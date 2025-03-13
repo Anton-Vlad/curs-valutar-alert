@@ -2,7 +2,7 @@
 
 const props = defineProps({
     rate: Object,
-    className: String,
+    className: Object,
 });
 
 </script>
